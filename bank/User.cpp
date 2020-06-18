@@ -43,6 +43,13 @@ Regi_begin:
 		cout << "请输入符合格式的密码!" << endl;
 		goto Regi_begin;
 	}
+	//重复数字检测
+	if( (password1 % 10)* 111111 == password1 ){
+		cout << "密码不能为重复的6位数字" << endl;
+		getchar();
+		goto Regi_begin;
+	}
+
 	cout << "请再次输入6位数字密码:";
 	cin >> password2;
 
@@ -213,6 +220,31 @@ void account::withdraw() {
 		cout << "请输入取款额：" << endl;
 		cin >> amount;
 		getchar();
+		//取款条件
+		if( amount % 100 > 0  ){
+			system("cls");
+			cout << "取款额需为100的倍数，请重新输入！" <<endl;
+			getchar();
+			continue;
+		}
+		if( amount > 5000 ){
+			system("cls");
+			cout << "取款额不能大于5000元，请重新输入！" << endl;
+			getchar();
+			continue;
+		}
+		if( amount < 0 ){
+			system("cls");
+			cout << "取款额不能为负，请重新输入！" << endl;
+			getchar();
+			continue;
+		}
+		if( amount == 0 ){
+			system("cls");
+			cout << "取款额不能为0，请重新输入！" << endl;
+			getchar();
+			continue;
+		}
 		system("cls");
 		cout << "您将要取款" << amount << "元" << endl;
 		cout << "请再次确认取款（1-确认，0-取消）" << endl;
@@ -288,6 +320,13 @@ void account::ChangePassword() {
 			}
 			if (password1 < 100000 || password1 > 999999) {//是否输入6位数字
 				cout << "请输入符合格式的密码!" << endl;
+				getchar();
+				goto Change_begin;
+			}
+			//重复数字检测
+			if( (password1 % 10)* 111111 == password1 ){
+				cout << "密码不能为重复的6位数字" << endl;
+				getchar();
 				goto Change_begin;
 			}
 			cout << "请再次输入新6位数字密码:";
